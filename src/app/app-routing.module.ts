@@ -7,7 +7,7 @@ import { ItemComponent } from './todo/components/item/item.component';
 const routes: Routes = [
 
   { path: 'items', component: ItemsListComponent },
-  { path: 'item', component: ItemComponent },
+  // { path: 'item', component: ItemComponent },
   // { path: 'user', component: SecondComponent },
 ];
 

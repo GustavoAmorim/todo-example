@@ -4,6 +4,8 @@ import { take } from 'rxjs/internal/operators/take';
 import { of } from 'rxjs/internal/observable/of';
 import { Observable } from 'rxjs';
 
+import { Item } from '../models/item';
+
 @Injectable({
   providedIn: 'root'
 })
