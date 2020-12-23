@@ -1,10 +1,10 @@
-<p>items-list works!</p>
-
 <div>
 
   <app-item
     *ngFor="let item of getItems; let last = last; let index = index"
     [itemParam]="item" >
   </app-item>
+
+  <mat-divider></mat-divider>
 
 </div>

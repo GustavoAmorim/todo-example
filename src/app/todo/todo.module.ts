@@ -7,6 +7,7 @@ import { AngularMaterialImportsModule } from 'src/angular-material/angular-mater
 
 import { ItemsListComponent } from './components/items-list/items-list.component';
 import { ItemComponent } from './components/item/item.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { ItemComponent } from './components/item/item.component';
 
     CommonModule,
 
+    MatDividerModule,
     FlexLayoutModule,
     AngularMaterialImportsModule,
   ]

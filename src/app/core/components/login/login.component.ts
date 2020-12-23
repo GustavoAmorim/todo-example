@@ -15,7 +15,6 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
   loading = false;
   submitted = false;
-  returnUrl: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -56,14 +55,22 @@ export class LoginComponent implements OnInit {
         return;
     }
 
-    this.loading = true;
-    this.authService.login(this.f.username.value, this.f.password.value)
-      .then(result => {
+    try {
 
-        this.authService.redirectToMain();
-      }, error => {
+      this.loading = true;
+      this.authService.login(this.f.username.value, this.f.password.value)
+        .then(result => {
 
-        window.alert(`Não foi possivel logar`);
-      })
+          this.authService.redirectToMain();
+        }, error => {
+
+          this.loading = false;
+          window.alert(`SignIn error`);
+        });
+    } catch (e) {
+
+      this.loading = false;
+      window.alert(`SignIn error`);
+    }
   }
 }

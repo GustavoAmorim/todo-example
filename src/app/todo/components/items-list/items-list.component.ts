@@ -21,12 +21,12 @@ export class ItemsListComponent implements OnInit {
     return [
       {
         id: 1,
-        label: 'Teste 1',
-        matIcon: 'menu'
+        label: 'Dog 1',
+        matIcon: 'person'
       },
       {
         id: 2,
-        label: 'Teste 2',
+        label: 'Dog 2',
         matIcon: 'apps'
       }
     ];

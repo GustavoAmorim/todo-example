@@ -6,10 +6,13 @@ import { ItemsListComponent } from './todo/components/items-list/items-list.comp
 import { RegisterComponent } from './core/components/register/register.component';
 import { LoginComponent } from './core/components/login/login.component';
 import { AuthGuard } from './core/guards/auth-guard';
+import { HomeComponent } from './core/components/home/home.component';
 
 const routes: Routes = [
 
   { path: 'todo', component: ItemsListComponent, canActivate: [AuthGuard]  },
+  // { path: 'books', component: ItemsListComponent, canActivate: [AuthGuard]  },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: '**', redirectTo: 'login' }

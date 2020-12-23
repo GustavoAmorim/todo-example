@@ -12,6 +12,8 @@ import { User } from '../models/user';
 })
 export class AuthService {
 
+  readonly localUserPrefix = 'username';
+
   private ENDPOINT_URL: string = '';
 
   private currentUserSubject: BehaviorSubject<User>;
@@ -36,7 +38,10 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  login(user: string, pwd: string) {
+  login(user: string, passwd: string) {
+
+    const userData = this.getUserLocal(user);
+    if (userData && userData.password === passwd) {
 
     return of('<TOKEN_JWT_USUARIO>')
       .pipe(
@@ -44,34 +49,41 @@ export class AuthService {
       ).toPromise()
         .then(result => {
 
-          const userObj = {
-
-            username: user
-          };
-
           // setar JWT nos cookies
-          this.updateCurrentUser(userObj);
+          this.updateCurrentUser(userData);
 
           return true;
         });
+    }
+
+    throw new Error(`User not found`);
   }
 
-  logout(user: string, pwd: string): Observable<boolean> {
+  logout(user: string): Promise<boolean> {
 
     return of(true)
       .pipe(
         take(1),
-      );
+      ).toPromise()
+      .then(result => {
+
+        this.removeUserLocal(user);
+        this.updateCurrentUser(null);
+        this.redirectToLogin();
+
+        return result;
+      });
   }
 
-  registerUser(username: string, name: string) {
+  registerUser(username: string, name: string, passwd: string) {
 
-    if (username && name) {
+    if (username && name && passwd) {
 
       const user: User = {
 
-        username: username,
-        name: name
+        email: username,
+        password: passwd,
+        name: name,
       };
 
       return of(true)
@@ -81,15 +93,31 @@ export class AuthService {
         .then(returnValue => {
 
           // fake storage - using localStorage
-          localStorage.setItem('username', JSON.stringify(user));
+          localStorage.setItem(this.localUserPrefix + username, JSON.stringify(user));
+
+          this.saveUserLocal(username, user);
         });
     }
+
+    throw new Error(`Something got wrong`);
   }
 
-  saveUserLocal(username) {
+  saveUserLocal(username, usrObj) {
 
     // fake storage - using localStorage
-    localStorage.setItem('username', JSON.stringify(username));
+    localStorage.setItem(this.localUserPrefix + username, JSON.stringify(usrObj));
+  }
+
+  removeUserLocal(username) {
+
+    // fake storage - using localStorage
+    localStorage.removeItem(this.localUserPrefix + username);
+  }
+
+  getUserLocal(username) {
+
+    // fake storage - using localStorage
+    return JSON.parse(localStorage.getItem(this.localUserPrefix + username));
   }
 
   updateCurrentUser(userObj?: User) {
@@ -110,7 +138,7 @@ export class AuthService {
 
   redirectToMain() {
 
-    this.router.navigate(['/todo']);
+    this.router.navigate(['/home']);
   }
 
   redirectToLogin() {

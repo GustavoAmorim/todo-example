@@ -1,0 +1,21 @@
+<mat-toolbar color="primary" layout="row" layout-align="space-around center" >
+
+    <h1>Welcome ZXY</h1>
+
+    <mat-divider [vertical]="true"></mat-divider>
+
+    <div>
+      <a *ngIf="isLogged" mat-button [routerLink]="'/home'"> Home </a>
+      <a *ngIf="isLogged" mat-button [routerLink]="'/todo'"> Products - Todo List  </a>
+      <a *ngIf="isLogged" mat-button [routerLink]="'/books'"> Books </a>
+    </div>
+
+    <span fxFlex></span>
+
+    <div fxLayoutAlign="end">
+      <a *ngIf="!isLogged" mat-button [routerLink]="'/login'"> SignIn </a>
+      <a *ngIf="!isLogged" mat-button [routerLink]="'/register'"> SignUp </a>
+      <a *ngIf="isLogged" mat-button (click)="userLogout()" > LogOut </a>
+    </div>
+
+</mat-toolbar>
