@@ -67,7 +67,6 @@ export class AuthService {
       ).toPromise()
       .then(result => {
 
-        this.removeUserLocal(user);
         this.updateCurrentUser(null);
         this.redirectToLogin();
 

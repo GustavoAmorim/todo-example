@@ -8,10 +8,12 @@ import { LoginComponent } from './core/components/login/login.component';
 import { AuthGuard } from './core/guards/auth-guard';
 import { HomeComponent } from './core/components/home/home.component';
 
+import { ReadingBooksComponent } from './books/components/reading-books/reading-books.component';
+
 const routes: Routes = [
 
-  { path: 'todo', component: ItemsListComponent, canActivate: [AuthGuard]  },
-  // { path: 'books', component: ItemsListComponent, canActivate: [AuthGuard]  },
+  { path: 'products', component: ItemsListComponent, canActivate: [AuthGuard]  },
+  { path: 'books', component: ReadingBooksComponent, canActivate: [AuthGuard]  },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
